@@ -10,13 +10,31 @@
     "ios": "./node_modules/.bin/react-native run-ios"
   },
   "dependencies": {
+    "lodash": "^4.17.10",
     "react": "16.3.1",
-    "react-native": "0.55.4"
+    "react-native": "0.55.4",
+    "react-navigation": "^2.5.5",
+    "react-navigation-redux-helpers": "^2.0.2",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "redux-devtools-extension": "^2.13.5",
+    "redux-logger": "^3.0.6",
+    "redux-persist": "^5.10.0",
+    "redux-thunk": "^2.3.0",
+    "reduxsauce": "^1.0.0"
   },
   "devDependencies": {
+    "babel-eslint": "^8.2.5",
     "babel-jest": "23.2.0",
     "babel-preset-react-native": "4.0.0",
+    "eslint": "^5.0.1",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jsx-control-statements": "^2.2.1",
+    "eslint-plugin-react": "^7.10.0",
+    "eslint-plugin-react-native": "^3.2.1",
     "jest": "23.2.0",
+    "jsx-control-statements": "^3.2.8",
+    "react-native-debugger-open": "^0.3.17",
     "react-test-renderer": "16.3.1"
   },
   "jest": {

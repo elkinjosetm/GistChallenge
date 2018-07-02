@@ -1,24 +1,40 @@
 import { connect } from 'react-redux';
 import { createStackNavigator } from 'react-navigation';
 import { reduxifyNavigator, createReactNavigationReduxMiddleware } from 'react-navigation-redux-helpers';
-import navigatorConfig from '@navigators/navigatorConfig';
+import { rootConfig, mainStackConfig } from '@navigators/navigatorConfig';
 
 // Screens
 import LoginScreen from '@screens/LoginScreen';
-import MainScreen from '@screens/MainScreen';
+import HomeScreen from '@screens/HomeScreen';
+import ListScreen from '@screens/ListScreen';
 
 const middleware = createReactNavigationReduxMiddleware('root', state => state.nav);
 
+/**
+ * Every screen that we want
+ * to show with regular stack
+ * behavior, needs to be defined
+ * here
+ */
+const MainStack = createStackNavigator({
+	Home : { screen : HomeScreen },
+	List : { screen : ListScreen },
+}, mainStackConfig);
+
+/**
+ * Every screen that we
+ * want to show as modal
+ * needs to be defined in
+ * this navigator
+ */
 const RootNavigator = createStackNavigator({
+	Main  : { screen : MainStack },
 	Login : { screen : LoginScreen },
-	Main  : { screen : MainScreen },
-}, navigatorConfig);
+}, rootConfig);
 
 const AppWithNavigationState = reduxifyNavigator(RootNavigator, 'root');
 
-const mapStateToProps = state => ({
-	state : state.nav,
-});
+const mapStateToProps = ({ nav : state }) => ({ state });
 
 const AppNavigator = connect(mapStateToProps)(AppWithNavigationState);
 

@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { View, Text, Button } from 'react-native';
 import { connect } from 'react-redux';
 
-class MainScreenContainer extends Component {
+class HomeScreenContainer extends Component {
+	static navigationOptions = {
+		title : 'Home',
+	};
+
 	shouldComponentUpdate = () => (false)
 
-	goToLogin = () => {
-		console.log('goToLogin');
-	}
+	goTo = routName => () => this.props.navigation.navigate(routName)
 
 	render() {
 		return (
@@ -15,7 +17,11 @@ class MainScreenContainer extends Component {
 				<Text>Hello World</Text>
 				<Button
 					title="Login"
-					onPress={ this.goToLogin }
+					onPress={ this.goTo('Login') }
+				/>
+				<Button
+					title="List"
+					onPress={ this.goTo('List') }
 				/>
 			</View>
 		);
@@ -29,4 +35,4 @@ const mapDispatchToProps = dispatch => ({
 	dispatch,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainScreenContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreenContainer);

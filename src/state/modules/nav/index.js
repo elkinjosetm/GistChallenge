@@ -1,6 +1,6 @@
 import { RootNavigator } from '@navigators';
 
-// Start with two routes: The Main screen, with the Login screen on top.
+// Start the Main screen
 const firstAction = RootNavigator.router.getActionForPathAndParams('Main');
 const initialNavState = RootNavigator.router.getStateForAction(firstAction);
 

@@ -19,6 +19,8 @@ export default {
 			title : {
 				color : Colors.white,
 			},
+
+			buttonColor : Colors.white,
 		},
 	},
 };

@@ -7,6 +7,14 @@ import Strings from '@I18n';
 import styles from './styles';
 
 class HomeScreenComponent extends Component {
+	componentDidMount = () => {
+		/**
+		 * Automatically focus
+		 * username field
+		 */
+		this.usernameRef.focus();
+	}
+
 	shouldComponentUpdate = ({ username }) => {
 		const lastProps = this.props;
 
@@ -32,6 +40,7 @@ class HomeScreenComponent extends Component {
 						What user are you looking for?
 					</Text>
 					<TextInput
+						ref={ ref => { this.usernameRef = ref; } }
 						value={ username }
 						placeholder={ screenStrings.gistUsername }
 						style={ styles.textInput }

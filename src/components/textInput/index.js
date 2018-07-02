@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { TextInput as RawTextInput } from 'react-native';
-import { isEqual, cloneDeep, set, omit, isFunction } from 'lodash';
+import { isEqual, cloneDeep, set, omit, isFunction, has } from 'lodash';
 import styles from './styles';
 
 class TextInput extends Component {
 	static propType = {
-		value    : PropTypes.string,
-		onChange : PropTypes.func,
-		style    : PropTypes.oneOfType([
+		value           : PropTypes.string,
+		onChange        : PropTypes.func,
+		onSubmitEditing : PropTypes.func,
+		style           : PropTypes.oneOfType([
 			PropTypes.number,
 			PropTypes.object,
 			PropTypes.array,
@@ -22,8 +23,8 @@ class TextInput extends Component {
 	constructor(props) {
 		super(props);
 
-		this.debounce = null;
-		this.debounceFn = null;
+		this.debounceTimeout = null;
+		this.debounceCallback = null;
 		this.state = {
 			value : props.value,
 		};
@@ -69,15 +70,15 @@ class TextInput extends Component {
 			 * debounce callback
 			 * hanging there
 			 */
-			if (this.debounce !== null)
-				clearTimeout(this.debounce);
+			if (this.debounceTimeout !== null)
+				clearTimeout(this.debounceTimeout);
 
-			this.debounceFn = () => {
+			this.debounceCallback = () => {
 				// Make sure onChange is a function
 				if (isFunction(onChange))
 					onChange(value);
 
-				this.debounceFn = null;
+				this.debounceCallback = null;
 			};
 
 			/**
@@ -85,15 +86,45 @@ class TextInput extends Component {
 			 * to prevent updating the redux
 			 * state right away
 			 */
-			this.debounce = setTimeout(this.debounceFn, 300);
+			this.debounceTimeout = setTimeout(this.debounceCallback, 300);
 		});
+	}
+
+	focus = () => this.toggleFocus(true)
+
+	blur = () => this.toggleFocus(false)
+
+	toggleFocus = focus => {
+		const ref = this.field;
+
+		if (focus && has(ref, 'focus'))
+			ref.focus();
+
+		if (!focus && has(ref, 'blur'))
+			ref.blur();
+	}
+
+	onSubmitEditing = () => {
+		const { onSubmitEditing } = this.props;
+
+		/**
+		 * Manually execute the debounceCallback
+		 * and clear the timeout right away
+		 */
+		if (this.debounceTimeout !== null) {
+			clearTimeout(this.debounceTimeout);
+			this.debounceCallback();
+		}
+
+		if (isFunction(onSubmitEditing))
+			onSubmitEditing();
 	}
 
 	render() {
 		const {
 			style : extraStyle,
 			...props
-		} = omit(this.props, [ 'value', 'onChange' ]);
+		} = omit(this.props, [ 'value', 'onChange', 'onSubmitEditing' ]);
 		const { value } = this.state;
 		const style = [
 			styles.textInput,
@@ -105,7 +136,9 @@ class TextInput extends Component {
 				{ ...props }
 				style={ style }
 				value={ value }
+				ref={ ref => { this.field = ref; } }
 				onChangeText={ this.onChange }
+				onSubmitEditing={ this.onSubmitEditing }
 			/>
 		);
 	}

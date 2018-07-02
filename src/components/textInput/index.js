@@ -7,6 +7,7 @@ import styles from './styles';
 class TextInput extends Component {
 	static propType = {
 		value           : PropTypes.string,
+		hasError        : PropTypes.bool,
 		onChange        : PropTypes.func,
 		onSubmitEditing : PropTypes.func,
 		style           : PropTypes.oneOfType([
@@ -17,7 +18,8 @@ class TextInput extends Component {
 	};
 
 	static defaultProps = {
-		value : '',
+		value    : '',
+		hasError : false,
 	};
 
 	constructor(props) {
@@ -39,12 +41,14 @@ class TextInput extends Component {
 		return newState;
 	}
 
-	shouldComponentUpdate = ({ style }, { value }) => {
+	shouldComponentUpdate = ({ style, hasError }, { value }) => {
+		const lastProps = this.props;
 		const lastState = this.state;
 
 		return (
-			!isEqual(value, lastState.value) ||
-			!isEqual(style, lastState.style)
+			!isEqual(style, lastProps.style) ||
+			!isEqual(hasError, lastProps.hasError) ||
+			!isEqual(value, lastState.value)
 		);
 	}
 
@@ -122,12 +126,14 @@ class TextInput extends Component {
 
 	render() {
 		const {
+			hasError,
 			style : extraStyle,
 			...props
 		} = omit(this.props, [ 'value', 'onChange', 'onSubmitEditing' ]);
 		const { value } = this.state;
 		const style = [
 			styles.textInput,
+			hasError ? styles.errorState : undefined,
 			extraStyle,
 		];
 

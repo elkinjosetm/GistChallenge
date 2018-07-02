@@ -10,4 +10,8 @@ export default StyleSheet.create({
 		paddingVertical   : 8,
 		paddingHorizontal : 16,
 	},
+
+	errorState : {
+		borderColor : Colors.secondary,
+	},
 });

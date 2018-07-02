@@ -13,7 +13,8 @@ export default {
 		},
 		header : {
 			wrapper : {
-				backgroundColor : Colors.primary,
+				backgroundColor   : Colors.primary,
+				borderBottomColor : Colors.iron,
 			},
 
 			title : {

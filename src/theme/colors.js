@@ -1,9 +1,19 @@
 const regalBlue = '#013F73';
-const white = '#fff';
+const amaranth = '#EF2F4F';
+const mountainMeadow = '#1BAF4C';
+const cararra = '#f2f1ef';
 
 export default {
 	regalBlue,
-	white,
+	amaranth,
+	mountainMeadow,
+	cararra,
 	primary        : regalBlue,
-	mainBackground : white,
+	secondary      : amaranth,
+	tertiary       : mountainMeadow,
+	mainBackground : cararra,
+	white          : '#fff',
+	black          : '#000',
+	iron           : '#DADFE1',
+	hippieBlue     : '#638BB3',
 };

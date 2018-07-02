@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { Button, TextInput } from '@components';
+import Strings from '@I18n';
 import styles from './styles';
 
 class HomeScreenContainer extends Component {
 	static navigationOptions = {
-		title : 'User Selection',
+		title : Strings.screens.home.title,
 	};
 
 	shouldComponentUpdate = () => (false)
@@ -16,6 +17,8 @@ class HomeScreenContainer extends Component {
 	}
 
 	render() {
+		const screenStrings = Strings.screens.home;
+
 		return (
 			<View style={ styles.container }>
 				<View style={ styles.innerWrapper }>
@@ -23,13 +26,13 @@ class HomeScreenContainer extends Component {
 						What user are you looking for?
 					</Text>
 					<TextInput
-						placeholder="Gist username"
+						placeholder={ screenStrings.gistUsername }
 						style={ styles.textInput }
 						onChange={ console.log }
 					/>
 					<Button
 						color="primary"
-						title="Search"
+						title={ screenStrings.search }
 						onPress={ this.search }
 					/>
 				</View>

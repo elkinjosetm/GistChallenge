@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
+import Strings from '@I18n';
 
 class ListScreenContainer extends Component {
 	static navigationOptions = {
-		title : 'Gists',
+		title : Strings.screens.list.title,
 	};
 
 	shouldComponentUpdate = () => (false)

@@ -4,12 +4,10 @@ import { ApplicationStyles, Metrics } from '@theme';
 export default StyleSheet.create({
 	container : {
 		...ApplicationStyles.screen.container,
-		justifyContent : 'center',
-		alignItems     : 'center',
 	},
 
 	innerWrapper : {
-		width : '60%',
+		padding : 60,
 	},
 
 	description : {

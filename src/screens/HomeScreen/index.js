@@ -1,28 +1,38 @@
 import React, { Component } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
+import { Button, TextInput } from '@components';
+import styles from './styles';
 
 class HomeScreenContainer extends Component {
 	static navigationOptions = {
-		title : 'Home',
+		title : 'User Selection',
 	};
 
 	shouldComponentUpdate = () => (false)
 
-	goTo = routName => () => this.props.navigation.navigate(routName)
+	search = () => {
+		console.log('search');
+	}
 
 	render() {
 		return (
-			<View>
-				<Text>Hello World</Text>
-				<Button
-					title="Login"
-					onPress={ this.goTo('Login') }
-				/>
-				<Button
-					title="List"
-					onPress={ this.goTo('List') }
-				/>
+			<View style={ styles.container }>
+				<View style={ styles.innerWrapper }>
+					<Text style={ styles.description }>
+						What user are you looking for?
+					</Text>
+					<TextInput
+						placeholder="Gist username"
+						style={ styles.textInput }
+						onChange={ console.log }
+					/>
+					<Button
+						color="primary"
+						title="Search"
+						onPress={ this.search }
+					/>
+				</View>
 			</View>
 		);
 	}

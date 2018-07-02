@@ -5,8 +5,13 @@ export { default as thunks } from './thunks';
 
 /* ------------- Initial State ------------- */
 export const INITIAL_STATE = {
-	username : '',
-	data     : {
+	form : {
+		username : '',
+	},
+	validations : {
+		username : false,
+	},
+	data : {
 		list    : [],
 		details : {},
 	},

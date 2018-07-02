@@ -15,11 +15,12 @@ class HomeScreenComponent extends Component {
 		this.usernameRef.focus();
 	}
 
-	shouldComponentUpdate = ({ username }) => {
+	shouldComponentUpdate = ({ form, validations }) => {
 		const lastProps = this.props;
 
 		return (
-			!isEqual(username, lastProps.username)
+			!isEqual(form, lastProps.form) ||
+			!isEqual(validations, lastProps.validations)
 		);
 	}
 
@@ -27,8 +28,11 @@ class HomeScreenComponent extends Component {
 
 	render() {
 		const {
-			username,
 			onSearch,
+			validations,
+			form : {
+				username,
+			},
 		} = this.props;
 
 		const screenStrings = Strings.screens.home;
@@ -42,9 +46,11 @@ class HomeScreenComponent extends Component {
 					<TextInput
 						ref={ ref => { this.usernameRef = ref; } }
 						value={ username }
+						hasError={ validations.username }
 						placeholder={ screenStrings.gistUsername }
 						style={ styles.textInput }
 						onChange={ this.onChange('username') }
+						onSubmitEditing={ onSearch }
 					/>
 					<Button
 						color="primary"

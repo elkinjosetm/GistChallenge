@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
-import { Button, TextInput } from '@components';
+import { isEqual } from 'lodash';
+import { bindActionCreators } from 'redux';
+import GlobalsActions from '@redux/globals';
 import Strings from '@I18n';
+import InnerComponent from './index.component';
 import styles from './styles';
 
 class HomeScreenContainer extends Component {
@@ -10,42 +13,44 @@ class HomeScreenContainer extends Component {
 		title : Strings.screens.home.title,
 	};
 
-	shouldComponentUpdate = () => (false)
+	shouldComponentUpdate = ({ username }) => {
+		const lastProps = this.props;
 
-	search = () => {
+		return (
+			!isEqual(username, lastProps.username)
+		);
+	}
+
+	onSearch = () => {
 		console.log('search');
 	}
 
+	onChange = (property, value) => this.props.changeState('gists', property, value)
+
 	render() {
-		const screenStrings = Strings.screens.home;
+		const {
+			username,
+		} = this.props;
 
 		return (
 			<View style={ styles.container }>
-				<View style={ styles.innerWrapper }>
-					<Text style={ styles.description }>
-						What user are you looking for?
-					</Text>
-					<TextInput
-						placeholder={ screenStrings.gistUsername }
-						style={ styles.textInput }
-						onChange={ console.log }
-					/>
-					<Button
-						color="primary"
-						title={ screenStrings.search }
-						onPress={ this.search }
-					/>
-				</View>
+				<InnerComponent
+					username={ username }
+					onSearch={ this.onSearch }
+					onChange={ this.onChange }
+				/>
 			</View>
 		);
 	}
 }
 
-const mapStateToProps = () => ({
+const mapStateToProps = ({ gists : { username } }) => ({
+	username,
 });
 
 const mapDispatchToProps = dispatch => ({
 	dispatch,
+	changeState : bindActionCreators(GlobalsActions, dispatch).changeState,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreenContainer);

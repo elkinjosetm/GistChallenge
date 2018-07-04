@@ -9,8 +9,16 @@ export const app = {
 	displayName : 'Gist Challenge',
 };
 
+/**
+ * We can support dynamic
+ * baseURL based on the build
+ * target (production, dev, etc.)
+ *
+ * For this challenge, we are
+ * only the public API url
+ */
 export const api = {
-	baseUrl : '',
+	baseUrl : 'https://api.github.com/',
 	timeout : 60000,
 };
 

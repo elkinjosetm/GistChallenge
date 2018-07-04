@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { View, StatusBar } from 'react-native';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import { api } from '@config';
+import { servicesInitializer } from '@services';
 import configureStore from '@redux-core';
 import { Colors } from '@theme';
 import Root from '@screens/root';
@@ -10,6 +12,8 @@ import styles from '@screens/root/styles';
 const { store, persistor } = configureStore();
 
 export default class App extends Component {
+	componentDidMount = () => servicesInitializer(api)
+
 	shouldComponentUpdate = () => (false)
 
 	render() {

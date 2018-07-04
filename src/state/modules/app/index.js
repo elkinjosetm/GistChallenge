@@ -4,14 +4,15 @@ export { default as thunks } from './thunks';
 
 /* ------------- Initial State ------------- */
 export const INITIAL_STATE = {
-	isInitiated : false,
-	loading     : false,
+	isInitiated  : false,
+	loading      : false,
+	loadingLabel : 'Loading...',
 };
 
 /* ------------- Types and Action Creators ------------- */
 export const { Types, Creators } = createActions({
 	init       : null,
-	setLoading : [ 'loading' ],
+	setLoading : [ 'loading', 'loadingLabel' ],
 }, { prefix : '@app/' });
 
 /* ------------- Hookup Reducers To Types ------------- */
@@ -21,9 +22,10 @@ export const reducer = createReducer(INITIAL_STATE, {
 		isInitiated : true,
 	}),
 
-	[Types.SET_LOADING] : (state, { loading }) => ({
+	[Types.SET_LOADING] : (state, { loading, loadingLabel = INITIAL_STATE.loadingLabel }) => ({
 		...state,
 		loading,
+		loadingLabel,
 	}),
 });
 

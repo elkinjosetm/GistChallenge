@@ -68,30 +68,30 @@ class TextInput extends Component {
 	onChange = value => {
 		const { onChange } = this.props;
 
-		this.setState({ value }, () => {
-			/**
-			 * Clear any possible
-			 * debounce callback
-			 * hanging there
-			 */
-			if (this.debounceTimeout !== null)
-				clearTimeout(this.debounceTimeout);
+		this.setState({ value });
 
-			this.debounceCallback = () => {
-				// Make sure onChange is a function
-				if (isFunction(onChange))
-					onChange(value);
+		/**
+		 * Clear any possible
+		 * debounce callback
+		 * hanging there
+		 */
+		if (this.debounceTimeout !== null)
+			clearTimeout(this.debounceTimeout);
 
-				this.debounceCallback = null;
-			};
+		this.debounceCallback = () => {
+			// Make sure onChange is a function
+			if (isFunction(onChange))
+				onChange(value);
 
-			/**
-			 * Setup the debounce function
-			 * to prevent updating the redux
-			 * state right away
-			 */
-			this.debounceTimeout = setTimeout(this.debounceCallback, 300);
-		});
+			this.debounceCallback = null;
+		};
+
+		/**
+		 * Setup the debounce function
+		 * to prevent updating the redux
+		 * state right away
+		 */
+		this.debounceTimeout = setTimeout(this.debounceCallback, 300);
 	}
 
 	focus = () => this.toggleFocus(true)
@@ -117,7 +117,9 @@ class TextInput extends Component {
 		 */
 		if (this.debounceTimeout !== null) {
 			clearTimeout(this.debounceTimeout);
-			this.debounceCallback();
+
+			if (isFunction(this.debounceCallback))
+				this.debounceCallback();
 		}
 
 		if (isFunction(onSubmitEditing))

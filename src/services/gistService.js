@@ -25,7 +25,7 @@ export default class GistService extends AbstractService {
 		};
 	}
 
-	static getByUsername({ username, queryParams }) {
+	static getByUsername(username, { queryParams } = {}) {
 		if (isNull(instance))
 			return Promise.reject({ message : _SERVICE_UNAVAILABLE_ });
 

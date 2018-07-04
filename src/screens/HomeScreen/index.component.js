@@ -7,14 +7,6 @@ import Strings from '@I18n';
 import styles from './styles';
 
 class HomeScreenComponent extends Component {
-	componentDidMount = () => {
-		/**
-		 * Automatically focus
-		 * username field
-		 */
-		this.usernameRef.focus();
-	}
-
 	shouldComponentUpdate = ({ form, validations }) => {
 		const lastProps = this.props;
 
@@ -34,7 +26,6 @@ class HomeScreenComponent extends Component {
 				username,
 			},
 		} = this.props;
-
 		const screenStrings = Strings.screens.home;
 
 		return (
@@ -44,7 +35,9 @@ class HomeScreenComponent extends Component {
 						What user are you looking for?
 					</Text>
 					<TextInput
-						ref={ ref => { this.usernameRef = ref; } }
+						autoFocus
+						autoCorrect={ false }
+						autoCapitalize="none"
 						value={ username }
 						hasError={ validations.username }
 						placeholder={ screenStrings.gistUsername }

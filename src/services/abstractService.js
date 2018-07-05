@@ -103,9 +103,9 @@ export default class AbstractService {
 	abstractRequest({
 		method,
 		data,
-		headers,
 		endpoint : url,
 		queryParams : params,
+		headers = { 'Cache-Control' : 'no-cache' },
 		baseURL = this.baseURL,
 		timeout = this.timeout,
 		withCredentials = true,

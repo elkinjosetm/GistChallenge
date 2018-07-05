@@ -1,21 +1,37 @@
+import { NavigationActions } from 'react-navigation';
 import { GistService } from '@services';
-import AppActions from '@redux/app';
+import GlobalsActions from '@redux/globals';
+import { apiErrorHandler } from '@utils';
+import Actions from './';
 
 /* ------------- Thunks actions ------------- */
-export const loadGists = () => ((dispatch, getState) => {
-	const {
-		form : { username },
-	} = getState().gists;
+export const loadGists = ({
+	loaderModule = 'gists',
+	loaderProperty = [ 'loading', 'refreshControl' ],
+	navigateToList = false,
+} = {}) => ((dispatch, getState) => {
+	const { form : { username } } = getState().gists;
 
-	dispatch(AppActions.setLoading(true));
+	// Start loading animation
+	dispatch(GlobalsActions.changeState(loaderModule, loaderProperty, true));
 
 	GistService.getByUsername(username)
-		.then((({ data }) => {
-			console.log(data);
+		.then(({ data }) => {
+			// Receive gist data
+			dispatch(Actions.receiveData('list', data));
 
-			dispatch(AppActions.setLoading(false));
-		}))
-		.catch(console.log.bind(null, 'error'));
+			// Navigate to Gist List
+			if (navigateToList)
+				dispatch(NavigationActions.navigate({ routeName : 'List' }));
+
+			// Stop loading animation
+			dispatch(GlobalsActions.changeState(loaderModule, loaderProperty, false));
+		})
+		.catch(apiErrorHandler({
+			dispatch,
+			module   : loaderModule,
+			property : loaderProperty,
+		}));
 });
 
 export default {

@@ -16,8 +16,8 @@ export const INITIAL_STATE = {
 		details : {},
 	},
 	loading : {
-		refreshControl : true,
-		infiniteScroll : true,
+		refreshControl : false,
+		infiniteScroll : false,
 	},
 };
 

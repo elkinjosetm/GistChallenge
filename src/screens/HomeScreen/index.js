@@ -27,7 +27,11 @@ class HomeScreenContainer extends Component {
 		if (!this.validateForm())
 			return;
 
-		this.props.dispatch(thunks.loadGists());
+		this.props.dispatch(thunks.loadGists({
+			loaderModule   : 'app',
+			loaderProperty : 'loading',
+			navigateToList : true,
+		}));
 	}
 
 	validateForm = () => {

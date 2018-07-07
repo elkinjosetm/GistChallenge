@@ -122,8 +122,13 @@ class TextInput extends Component {
 				this.debounceCallback();
 		}
 
+		/**
+		 * Execute onSubmitEditing function
+		 * if it's defined, but only do so
+		 * if when the JS thread is empty
+		 */
 		if (isFunction(onSubmitEditing))
-			onSubmitEditing();
+			setTimeout(onSubmitEditing, 0);
 	}
 
 	render() {

@@ -24,8 +24,9 @@ export const INITIAL_STATE = {
 
 /* ------------- Types and Action Creators ------------- */
 export const { Types, Creators } = createActions({
-	receiveData : [ 'property', 'value' ],
-	setLoading  : [ 'property', 'value' ],
+	receiveData  : [ 'property', 'value' ],
+	setLoading   : [ 'property', 'value' ],
+	clearDetails : null,
 }, { prefix : '@gists/' });
 
 /* ------------- Hookup Reducers To Types ------------- */
@@ -42,6 +43,15 @@ export const reducer = createReducer(INITIAL_STATE, {
 		const newState = cloneDeep(state);
 
 		set(newState, [ 'loading', property ], value);
+
+		return newState;
+	},
+
+	[Types.CLEAR_DETAILS] : state => {
+		const newState = cloneDeep(state);
+
+		set(newState, [ 'data', 'details' ], {});
+		set(newState, [ 'data', 'comments' ], []);
 
 		return newState;
 	},

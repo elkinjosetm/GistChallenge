@@ -1,5 +1,5 @@
 import { NavigationActions } from 'react-navigation';
-import { map } from 'lodash';
+import { map, findIndex, get } from 'lodash';
 import { v4 as uuid } from 'uuid';
 import { GistService } from '@services';
 import GlobalsActions from '@redux/globals';
@@ -101,7 +101,27 @@ export const getGistById = (gistId, {
 		}));
 });
 
+export const loadNearestGist = direction => ((dispatch, getState) => {
+	const {
+		list,
+		details : { id : currentGistId },
+	} = getState().gists.data;
+	const currentIndex = findIndex(list, [ 'id', currentGistId ]);
+	const requestedIndex = direction === 'next' ? currentIndex + 1 : currentIndex - 1;
+	const requestedGistId = get(list, [ requestedIndex, 'id' ]);
+
+	// Clear current gist data
+	dispatch(Actions.clearDetails());
+
+	// Request the next gist in the list
+	dispatch(getGistById(requestedGistId, {
+		loaderModule   : 'app',
+		loaderProperty : 'loading',
+	}));
+});
+
 export default {
 	loadGists,
 	getGistById,
+	loadNearestGist,
 };

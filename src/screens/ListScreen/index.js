@@ -29,7 +29,7 @@ class ListScreenContainer extends Component {
 	onPressGist = gistId => () => this.props.dispatch(thunks.getGistById(gistId, {
 		loaderModule   : 'app',
 		loaderProperty : 'loading',
-		navigateToPage : true
+		navigateToPage : true,
 	}))
 
 	render() {

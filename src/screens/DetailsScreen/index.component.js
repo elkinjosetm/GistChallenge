@@ -45,6 +45,9 @@ class DetailsScreenComponent extends Component {
 		const {
 			sections,
 			loading,
+			isPrevAvailable,
+			isNextAvailable,
+			onNavigate,
 			onRefresh,
 		} = this.props;
 		const screenStrings = Strings.screens.details;
@@ -62,16 +65,22 @@ class DetailsScreenComponent extends Component {
 				/>
 				<View style={ styles.footer }>
 					<View style={ styles.buttonWrapper }>
-						<Button
-							title={ screenStrings.prevGist }
-							color="white"
-						/>
+						<If condition={ isPrevAvailable }>
+							<Button
+								title={ screenStrings.prevGist }
+								onPress={ onNavigate('prev') }
+								color="white"
+							/>
+						</If>
 					</View>
 					<View style={ styles.buttonWrapper }>
-						<Button
-							title={ screenStrings.nextGist }
-							color="white"
-						/>
+						<If condition={ isNextAvailable }>
+							<Button
+								title={ screenStrings.nextGist }
+								onPress={ onNavigate('next') }
+								color="white"
+							/>
+						</If>
 					</View>
 				</View>
 			</View>

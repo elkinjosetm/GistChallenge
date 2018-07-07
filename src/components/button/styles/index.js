@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Metrics } from '@theme';
+import { ApplicationStyles, Colors, Metrics } from '@theme';
 
 export default StyleSheet.create({
 	button : {
+		...ApplicationStyles.screen.shadow,
 		alignItems        : 'center',
 		paddingVertical   : 8,
 		paddingHorizontal : 30,

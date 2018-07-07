@@ -26,6 +26,8 @@ class ListScreenContainer extends Component {
 
 	onRefresh = () => this.props.dispatch(thunks.loadGists())
 
+	onPressGist = gistId => () => this.props.dispatch(thunks.getGistById(gistId))
+
 	render() {
 		const {
 			data,
@@ -38,6 +40,7 @@ class ListScreenContainer extends Component {
 					data={ data }
 					loading={ loading }
 					onRefresh={ this.onRefresh }
+					onPressGist={ this.onPressGist }
 				/>
 			</View>
 		);

@@ -1,6 +1,7 @@
 import { NavigationActions } from 'react-navigation';
 import { GistService } from '@services';
 import GlobalsActions from '@redux/globals';
+import AppActions from '@redux/app';
 import { apiErrorHandler } from '@utils';
 import Actions from './';
 
@@ -34,6 +35,24 @@ export const loadGists = ({
 		}));
 });
 
+export const getGistById = gistId => (dispatch => {
+	// Start loading animation
+	dispatch(AppActions.setLoading(true));
+
+	GistService.getById(gistId)
+		.then(({ data }) => {
+			// Receive gist data
+			dispatch(Actions.receiveData('details', data));
+
+			// Stop loading animation
+			dispatch(AppActions.setLoading(false));
+		})
+		.catch(apiErrorHandler({
+			dispatch,
+		}));
+});
+
 export default {
 	loadGists,
+	getGistById,
 };

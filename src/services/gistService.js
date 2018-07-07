@@ -34,4 +34,14 @@ export default class GistService extends AbstractService {
 			queryParams,
 		});
 	}
+
+	static getById(gistId, { queryParams } = {}) {
+		if (isNull(instance))
+			return Promise.reject({ message : _SERVICE_UNAVAILABLE_ });
+
+		return instance.get({
+			endpoint : `${instance.endpoints.gists}/${gistId}`,
+			queryParams,
+		});
+	}
 }

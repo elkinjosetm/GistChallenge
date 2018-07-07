@@ -19,6 +19,7 @@ class ListScreenComponent extends Component {
 		<GistPreview
 			isFirst={ index === 0 }
 			data={ item }
+			onPress={ this.props.onPressGist(item.id) }
 		/>
 	)
 

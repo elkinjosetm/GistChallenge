@@ -2,16 +2,20 @@ import { StyleSheet } from 'react-native';
 import { Colors, Metrics } from '@theme';
 
 export default StyleSheet.create({
+	container : {
+		padding         : Metrics.screenSpacing,
+		marginTop       : Metrics.screenSpacing / 2,
+		marginBottom    : Metrics.screenSpacing / 2,
+		backgroundColor : Colors.white,
+	},
+
 	content : {
 		flexDirection : 'row',
 		alignItems    : 'center',
 	},
 
-	separator : {
-		marginTop         : Metrics.screenSpacing / 2,
-		marginBottom      : Metrics.screenSpacing / 2,
-		borderBottomWidth : Metrics.borderWidth,
-		borderBottomColor : Colors.pumice,
+	fileContent : {
+		paddingTop : Metrics.screenSpacing / 2,
 	},
 
 	text : {

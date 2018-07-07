@@ -25,6 +25,7 @@ export default StyleSheet.create({
 	primaryColorButton   : { backgroundColor : Colors.primary },
 	secondaryColorButton : { backgroundColor : Colors.secondary },
 	tertiaryColorButton  : { backgroundColor : Colors.tertiary },
+	whiteColorButton     : { backgroundColor : Colors.white },
 
 	smSizeText  : { fontSize : 13, lineHeight : 13 },
 	lgSizeText  : { fontSize : 20, lineHeight : 20 },
@@ -33,4 +34,5 @@ export default StyleSheet.create({
 	primaryColorText   : { color : Colors.white },
 	secondaryColorText : { color : Colors.white },
 	tertiaryColorText  : { color : Colors.white },
+	whiteColorText     : { color : Colors.black },
 });

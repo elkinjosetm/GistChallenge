@@ -20,6 +20,7 @@ class Button extends Component {
 			'primary',
 			'secondary',
 			'tertiary',
+			'white',
 		]),
 		style : PropTypes.oneOfType([
 			PropTypes.number,

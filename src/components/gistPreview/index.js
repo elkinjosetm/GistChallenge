@@ -4,45 +4,32 @@ import { View, Text } from 'react-native';
 import { isEqual } from 'lodash';
 import styles from './styles';
 
-class GistItem extends Component {
+class GistPreview extends Component {
 	static propType = {
 		data : PropTypes.shape({
 			description : PropTypes.string,
 		}).isRequired,
-		isLast : PropTypes.bool,
-	};
-
-	static defaultProps = {
-		isLast : false,
 	};
 
 	shouldComponentUpdate = ({
 		data,
-		isLast,
 	}) => {
 		const lastProps = this.props;
 
 		return (
-			!isEqual(data, lastProps.data) ||
-			!isEqual(isLast, lastProps.isLast)
+			!isEqual(data, lastProps.data)
 		);
 	}
 
 	render() {
 		const {
-			isLast,
 			data : {
 				description,
 			},
 		} = this.props;
 
 		return (
-			<View
-				style={ [
-					styles.itemWrapper,
-					!isLast ? styles.itemSeparation : undefined
-				] }
-			>
+			<View style={ styles.itemWrapper }>
 				<Text style={ styles.text }>
 					{ description }
 				</Text>
@@ -51,4 +38,4 @@ class GistItem extends Component {
 	}
 }
 
-export default GistItem;
+export default GistPreview;

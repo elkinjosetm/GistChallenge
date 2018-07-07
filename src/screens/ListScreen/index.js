@@ -1,32 +1,16 @@
 import React, { Component } from 'react';
-import { FlatList } from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
-import { isEqual, cloneDeep, set } from 'lodash';
+import { isEqual } from 'lodash';
 import { thunks } from '@redux/gists';
 import Strings from '@I18n';
-import { GistItem } from '@components';
+import InnerComponent from './index.component';
+import styles from './styles';
 
 class ListScreenContainer extends Component {
 	static navigationOptions = {
 		title : Strings.screens.list.title,
 	};
-
-	constructor(props) {
-		super(props);
-
-		this.state = {
-			dataLength : props.data.length,
-		};
-	}
-
-	static getDerivedStateFromProps = ({ data }, prevState) => {
-		const newState = cloneDeep(prevState);
-
-		if (!isEqual(newState.dataLength, data.length))
-			set(newState, [ 'dataLength', data.length ]);
-
-		return newState;
-	}
 
 	shouldComponentUpdate = ({
 		data,
@@ -40,15 +24,6 @@ class ListScreenContainer extends Component {
 		);
 	}
 
-	keyExtractor = ({ id }) => (id)
-
-	renderItem = ({ item, index }) => (
-		<GistItem
-			data={ item }
-			isLast={ index === this.state.dataLength - 1 }
-		/>
-	)
-
 	onRefresh = () => this.props.dispatch(thunks.loadGists())
 
 	render() {
@@ -58,13 +33,13 @@ class ListScreenContainer extends Component {
 		} = this.props;
 
 		return (
-			<FlatList
-				refreshing={ loading }
-				data={ data }
-				renderItem={ this.renderItem }
-				keyExtractor={ this.keyExtractor }
-				onRefresh={ this.onRefresh }
-			/>
+			<View style={ styles.container }>
+				<InnerComponent
+					data={ data }
+					loading={ loading }
+					onRefresh={ this.onRefresh }
+				/>
+			</View>
 		);
 	}
 }

@@ -2,15 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { TextInput as RawTextInput } from 'react-native';
 import { isEqual, cloneDeep, set, omit, isFunction, has } from 'lodash';
+import { Colors } from '@theme';
 import styles from './styles';
 
 class TextInput extends Component {
 	static propType = {
-		value           : PropTypes.string,
-		hasError        : PropTypes.bool,
-		onChange        : PropTypes.func,
-		onSubmitEditing : PropTypes.func,
-		style           : PropTypes.oneOfType([
+		value                 : PropTypes.string,
+		underlineColorAndroid : PropTypes.string,
+		hasError              : PropTypes.bool,
+		onChange              : PropTypes.func,
+		onSubmitEditing       : PropTypes.func,
+		style                 : PropTypes.oneOfType([
 			PropTypes.number,
 			PropTypes.object,
 			PropTypes.array,
@@ -18,8 +20,9 @@ class TextInput extends Component {
 	};
 
 	static defaultProps = {
-		value    : '',
-		hasError : false,
+		value                 : '',
+		underlineColorAndroid : Colors.transparent,
+		hasError              : false,
 	};
 
 	constructor(props) {

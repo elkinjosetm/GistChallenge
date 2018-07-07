@@ -12,6 +12,7 @@ export default {
 	secondary      : amaranth,
 	tertiary       : mountainMeadow,
 	mainBackground : cararra,
+	transparent    : 'transparent',
 	white          : '#fff',
 	black          : '#000',
 	iron           : '#DADFE1',

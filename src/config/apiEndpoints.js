@@ -1,4 +1,5 @@
 export default {
-	users : 'users',
-	gists : 'gists',
+	users    : 'users',
+	gists    : 'gists',
+	comments : 'comments',
 };

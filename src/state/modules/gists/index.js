@@ -12,8 +12,9 @@ export const INITIAL_STATE = {
 		username : false,
 	},
 	data : {
-		list    : [],
-		details : {},
+		list     : [],
+		details  : {},
+		comments : [],
 	},
 	loading : {
 		refreshControl : false,

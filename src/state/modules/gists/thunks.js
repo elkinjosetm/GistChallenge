@@ -1,5 +1,6 @@
 import { NavigationActions } from 'react-navigation';
 import { map } from 'lodash';
+import { v4 as uuid } from 'uuid';
 import { GistService } from '@services';
 import GlobalsActions from '@redux/globals';
 import AppActions from '@redux/app';
@@ -36,7 +37,7 @@ export const loadGists = ({
 		}));
 });
 
-export const getGistById = gistId => (dispatch => {
+export const getGistById = gistId => ((dispatch, getState) => {
 	// Start loading animation
 	dispatch(AppActions.setLoading(true));
 
@@ -52,13 +53,14 @@ export const getGistById = gistId => (dispatch => {
 			 * use easily throughout the app.
 			 *
 			 * Also, since a file doesn't have
-			 * and id in the response, we use
-			 * the position index as KEY so it
-			 * can be used for the list render
+			 * and id in the response, we
+			 * generate a random id so it can
+			 * be used for the list render as
+			 * key
 			 */
-			const filesArray = map(data.files, (file, index) => ({
+			const filesArray = map(data.files, file => ({
 				...file,
-				key : index,
+				id : uuid(),
 			}));
 
 			// Add filesArray to the details object
@@ -67,12 +69,18 @@ export const getGistById = gistId => (dispatch => {
 			// Receive gist data
 			dispatch(Actions.receiveData('details', data));
 
+			return GistService.gotCommentsById(gistId);
+		})
+		.then(({ data }) => {
+			const { description : title } = getState().gists.data.details;
+
+			// Receive gist data
+			dispatch(Actions.receiveData('comments', data));
+
 			// Navigate to Details page and set the page title
 			dispatch(NavigationActions.navigate({
 				routeName : 'Details',
-				params    : {
-					title : data.description,
-				},
+				params    : { title },
 			}));
 
 			// Stop loading animation

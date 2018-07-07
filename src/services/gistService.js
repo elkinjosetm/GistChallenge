@@ -20,8 +20,9 @@ export default class GistService extends AbstractService {
 		super(baseURL, options);
 
 		this.endpoints = {
-			users : APIEndpoints.users,
-			gists : APIEndpoints.gists,
+			users    : APIEndpoints.users,
+			gists    : APIEndpoints.gists,
+			comments : APIEndpoints.comments,
 		};
 	}
 
@@ -41,6 +42,16 @@ export default class GistService extends AbstractService {
 
 		return instance.get({
 			endpoint : `${instance.endpoints.gists}/${gistId}`,
+			queryParams,
+		});
+	}
+
+	static gotCommentsById(gistId, { queryParams } = {}) {
+		if (isNull(instance))
+			return Promise.reject({ message : _SERVICE_UNAVAILABLE_ });
+
+		return instance.get({
+			endpoint : `${instance.endpoints.gists}/${gistId}/${instance.endpoints.comments}`,
 			queryParams,
 		});
 	}

@@ -95,12 +95,14 @@ def enableProguardInReleaseBuilds = false
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "com.gistchallenge"
-        minSdkVersion 16
-        targetSdkVersion 22
+        renderscriptTargetApi 23
+        renderscriptSupportModeEnabled true
+        minSdkVersion 23
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
         ndk {
@@ -137,6 +139,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-blur')
     compile project(':react-native-vector-icons')
     compile project(':react-native-localization')
     compile fileTree(dir: "libs", include: ["*.jar"])

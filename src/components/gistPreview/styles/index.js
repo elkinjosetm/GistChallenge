@@ -19,9 +19,16 @@ export default StyleSheet.create({
 		padding         : Metrics.screenSpacing,
 	},
 
-	header : {
+	content : {
 		flexDirection : 'row',
 		alignItems    : 'center',
+	},
+
+	separator : {
+		marginTop         : Metrics.screenSpacing / 2,
+		marginBottom      : Metrics.screenSpacing / 2,
+		borderBottomWidth : Metrics.borderWidth,
+		borderBottomColor : Colors.pumice,
 	},
 
 	text : {
@@ -41,5 +48,14 @@ export default StyleSheet.create({
 		fontSize   : Metrics.fontSizeSmall,
 		lineHeight : Metrics.fontSizeSmall,
 		fontWeight : Metrics.fontWeightLight,
+	},
+
+	iconWrapper : {
+		paddingRight : Metrics.screenSpacing,
+	},
+
+	iconText : {
+		top        : 2,
+		marginLeft : 5,
 	},
 });

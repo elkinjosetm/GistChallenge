@@ -27,8 +27,26 @@ class Card extends PureComponent {
 			children,
 		} = this.props;
 
+		/**
+		 * Only Add show to the innerBox,
+		 * when the card is not Touchable.
+		 *
+		 * Because when it's touchable,
+		 * the shadow, is added to the
+		 * touchableComponent.
+		 *
+		 * We have to do this because on
+		 * Android, since the innerContent
+		 * is wrapper by a touchableComponent,
+		 * the shadow is not visible
+		 */
 		const innerContent = (
-			<View style={ styles.innerContent }>
+			<View
+				style={ [
+					styles.innerContent,
+					isUndefined(onPress) ? styles.shadow : undefined
+				] }
+			>
 				{ children }
 			</View>
 		);
@@ -47,6 +65,7 @@ class Card extends PureComponent {
 					</When>
 					<Otherwise>
 						<TouchableOpacity
+							style={ styles.shadow }
 							onPress={ onPress }
 							activeOpacity={ 0.8 }
 							disabled={ disabled }

@@ -17,9 +17,13 @@ export default StyleSheet.create({
 	},
 
 	innerContent : {
-		...ApplicationStyles.screen.shadow,
 		borderRadius    : Metrics.borderRadius,
 		backgroundColor : Colors.white,
 		padding         : Metrics.screenSpacing,
+	},
+
+	shadow : {
+		...ApplicationStyles.screen.shadow,
+		borderRadius : Metrics.borderRadius,
 	},
 });

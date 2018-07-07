@@ -19,6 +19,8 @@ export default {
 		details : {
 			files    : 'Files',
 			comments : 'Comments',
+			prevGist : 'Previous',
+			nextGist : 'Next',
 		},
 	},
 };

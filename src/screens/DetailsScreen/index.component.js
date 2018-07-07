@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { SectionList } from 'react-native';
+import { SectionList, View } from 'react-native';
 import { isEqual } from 'lodash';
-import { FilePreview, SectionHeader, CommentPreview } from '@components';
+import Strings from '@i18n';
+import { FilePreview, SectionHeader, CommentPreview, Button } from '@components';
+import styles from './styles';
 
 class DetailsScreenComponent extends Component {
 	shouldComponentUpdate = ({ sections, loading }) => {
@@ -45,16 +47,34 @@ class DetailsScreenComponent extends Component {
 			loading,
 			onRefresh,
 		} = this.props;
+		const screenStrings = Strings.screens.details;
 
 		return (
-			<SectionList
-				refreshing={ loading }
-				sections={ sections }
-				onRefresh={ onRefresh }
-				renderItem={ this.renderItem }
-				renderSectionHeader={ this.renderSectionHeader }
-				keyExtractor={ this.keyExtractor }
-			/>
+			<View style={ styles.container }>
+				<SectionList
+					style={ styles.list }
+					refreshing={ loading }
+					sections={ sections }
+					onRefresh={ onRefresh }
+					renderItem={ this.renderItem }
+					renderSectionHeader={ this.renderSectionHeader }
+					keyExtractor={ this.keyExtractor }
+				/>
+				<View style={ styles.footer }>
+					<View style={ styles.buttonWrapper }>
+						<Button
+							title={ screenStrings.prevGist }
+							color="white"
+						/>
+					</View>
+					<View style={ styles.buttonWrapper }>
+						<Button
+							title={ screenStrings.nextGist }
+							color="white"
+						/>
+					</View>
+				</View>
+			</View>
 		);
 	}
 }

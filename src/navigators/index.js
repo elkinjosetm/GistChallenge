@@ -7,6 +7,7 @@ import { rootConfig, mainStackConfig } from '@navigators/navigatorConfig';
 import LoginScreen from '@screens/LoginScreen';
 import HomeScreen from '@screens/HomeScreen';
 import ListScreen from '@screens/ListScreen';
+import DetailsScreen from '@screens/DetailsScreen';
 
 const middleware = createReactNavigationReduxMiddleware('root', state => state.nav);
 
@@ -17,8 +18,9 @@ const middleware = createReactNavigationReduxMiddleware('root', state => state.n
  * here
  */
 const MainStack = createStackNavigator({
-	Home : { screen : HomeScreen },
-	List : { screen : ListScreen },
+	Home    : { screen : HomeScreen },
+	List    : { screen : ListScreen },
+	Details : { screen : DetailsScreen },
 }, mainStackConfig);
 
 /**

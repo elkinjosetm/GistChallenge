@@ -1,5 +1,7 @@
-import { get } from 'lodash';
+import { ToastStyles } from 'react-native-toaster';
+import { get, isFunction } from 'lodash';
 import GlobalsActions from '@redux/globals';
+import AppActions from '@redux/app';
 
 export const apiErrorHandler = ({
 	dispatch,
@@ -20,9 +22,40 @@ export const apiErrorHandler = ({
 	message = get(error, [ 'response', 'data', 'message' ], defaultMessage);
 
 	// Notify user
-	console.log(message);
+	dispatch(notify({
+		message,
+		type : ToastStyles.error,
+	}));
 };
+
+export const notify = ({
+	type,
+	onShow,
+	onPress,
+	message : text,
+	onHide : onHideAddon,
+	duration = 3000,
+}) => (dispatch => {
+	const styles = type || ToastStyles.info;
+	const onHide = () => {
+		dispatch(AppActions.clearNotification());
+
+		if (isFunction(onHideAddon))
+			onHideAddon();
+	};
+
+	// Send notification
+	dispatch(AppActions.showNotification({
+		text,
+		styles,
+		duration,
+		onShow,
+		onHide,
+		onPress,
+	}));
+});
 
 export default {
 	apiErrorHandler,
+	notify,
 };

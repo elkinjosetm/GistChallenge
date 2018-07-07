@@ -26,7 +26,11 @@ class ListScreenContainer extends Component {
 
 	onRefresh = () => this.props.dispatch(thunks.loadGists())
 
-	onPressGist = gistId => () => this.props.dispatch(thunks.getGistById(gistId))
+	onPressGist = gistId => () => this.props.dispatch(thunks.getGistById(gistId, {
+		loaderModule   : 'app',
+		loaderProperty : 'loading',
+		navigateToPage : true
+	}))
 
 	render() {
 		const {

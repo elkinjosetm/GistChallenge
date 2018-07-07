@@ -3,7 +3,6 @@ import { map } from 'lodash';
 import { v4 as uuid } from 'uuid';
 import { GistService } from '@services';
 import GlobalsActions from '@redux/globals';
-import AppActions from '@redux/app';
 import { apiErrorHandler } from '@utils';
 import Actions from './';
 
@@ -37,9 +36,13 @@ export const loadGists = ({
 		}));
 });
 
-export const getGistById = gistId => ((dispatch, getState) => {
+export const getGistById = (gistId, {
+	loaderModule = 'gists',
+	loaderProperty = [ 'loading', 'refreshControl' ],
+	navigateToPage = false,
+} = {}) => ((dispatch, getState) => {
 	// Start loading animation
-	dispatch(AppActions.setLoading(true));
+	dispatch(GlobalsActions.changeState(loaderModule, loaderProperty, true));
 
 	GistService.getById(gistId)
 		.then(({ data : rawData }) => {
@@ -77,17 +80,24 @@ export const getGistById = gistId => ((dispatch, getState) => {
 			// Receive gist data
 			dispatch(Actions.receiveData('comments', data));
 
-			// Navigate to Details page and set the page title
-			dispatch(NavigationActions.navigate({
-				routeName : 'Details',
-				params    : { title },
-			}));
+			/**
+			 * Navigate to Details page and set
+			 * the page title only if it's required
+			 */
+			if (navigateToPage) {
+				dispatch(NavigationActions.navigate({
+					routeName : 'Details',
+					params    : { title },
+				}));
+			}
 
 			// Stop loading animation
-			dispatch(AppActions.setLoading(false));
+			dispatch(GlobalsActions.changeState(loaderModule, loaderProperty, false));
 		})
 		.catch(apiErrorHandler({
 			dispatch,
+			module   : loaderModule,
+			property : loaderProperty,
 		}));
 });
 

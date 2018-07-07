@@ -15,8 +15,9 @@ class ListScreenComponent extends Component {
 
 	keyExtractor = ({ id }) => (id)
 
-	renderItem = ({ item }) => (
+	renderItem = ({ item, index }) => (
 		<GistPreview
+			isFirst={ index === 0 }
 			data={ item }
 		/>
 	)
@@ -30,7 +31,7 @@ class ListScreenComponent extends Component {
 
 		return (
 			<FlatList
-				refreshing={ loading }
+				refreshing={ loading.refreshControl }
 				data={ data }
 				onRefresh={ onRefresh }
 				keyExtractor={ this.keyExtractor }

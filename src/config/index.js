@@ -30,7 +30,7 @@ export const debugSettings = {
 export const reduxPersist = {
 	storage,
 	key       : '1.0.0.1',
-	blacklist : [ 'nav', 'app', 'gists' ],
+	// blacklist : [ 'nav', 'app', 'gists' ],
 };
 
 export const hostSettings = {

@@ -46,7 +46,7 @@ class ListScreenContainer extends Component {
 
 const mapStateToProps = ({ gists : {
 	data : { list : data },
-	loading : { refreshControl : loading },
+	loading,
 } }) => ({
 	data,
 	loading,

@@ -15,5 +15,6 @@ export default {
 	white          : '#fff',
 	black          : '#000',
 	iron           : '#DADFE1',
+	pumice         : '#D2D7D3',
 	hippieBlue     : '#638BB3',
 };

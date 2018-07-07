@@ -1,14 +1,16 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Metrics } from '@theme';
+import { ApplicationStyles, Colors, Metrics } from '@theme';
 
 export default StyleSheet.create({
 	textInput : {
+		...ApplicationStyles.screen.shadow,
+		backgroundColor   : Colors.white,
 		borderColor       : Colors.primary,
 		borderWidth       : Metrics.borderWidth,
 		borderRadius      : Metrics.borderRadius,
 		fontSize          : Metrics.fontSize,
-		paddingVertical   : 8,
-		paddingHorizontal : 16,
+		paddingHorizontal : Metrics.screenSpacing,
+		paddingVertical   : (Metrics.screenSpacing / 2),
 	},
 
 	errorState : {

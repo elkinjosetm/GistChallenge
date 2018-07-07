@@ -13,10 +13,10 @@ export default StyleSheet.create({
 	description : {
 		fontSize     : Metrics.fontSize,
 		lineHeight   : Metrics.fontSize,
-		marginBottom : 16,
+		marginBottom : (Metrics.screenSpacing / 2),
 	},
 
 	textInput : {
-		marginBottom : 10,
+		marginBottom : Metrics.screenSpacing,
 	},
 });

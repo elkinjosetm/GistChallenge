@@ -2,12 +2,12 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { TouchableOpacity, View, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import { isEqual, isUndefined, keys } from 'lodash';
 import moment from 'moment';
 import Strings from '@I18n';
 import { __DATE_FORMAT__ } from '@constants';
-import { Icon } from '@components';
+import { Card, Icon } from '@components';
 import styles from './styles';
 
 class GistPreview extends Component {
@@ -58,42 +58,39 @@ class GistPreview extends Component {
 			commentsString = screenStrings.singleComment;
 
 		return (
-			<TouchableOpacity
-				style={ [ styles.itemWrapper, isFirst ? styles.firstItem : undefined ] }
+			<Card
+				first={ isFirst }
 				onPress={ onPress }
-				activeOpacity={ 0.8 }
 				disabled={ isUndefined(onPress) }
 			>
-				<View style={ styles.itemInnerContent }>
-					<View style={ styles.content }>
-						<Text style={ [ styles.text, styles.title ] }>
-							{ description }
-						</Text>
-						<Text style={ [ styles.text, styles.date ] }>
-							{ moment(created_at).format(__DATE_FORMAT__) }
+				<View style={ styles.content }>
+					<Text style={ [ styles.text, styles.title ] }>
+						{ description }
+					</Text>
+					<Text style={ [ styles.text, styles.date ] }>
+						{ moment(created_at).format(__DATE_FORMAT__) }
+					</Text>
+				</View>
+				<View style={ styles.separator } />
+				<View style={ styles.content }>
+					<View style={ [ styles.content, styles.iconWrapper ] }>
+						<Icon
+							name="file-code-o"
+						/>
+						<Text style={ [ styles.text, styles.iconText ] }>
+							{ filesString }
 						</Text>
 					</View>
-					<View style={ styles.separator } />
-					<View style={ styles.content }>
-						<View style={ [ styles.content, styles.iconWrapper ] }>
-							<Icon
-								name="file-code-o"
-							/>
-							<Text style={ [ styles.text, styles.iconText ] }>
-								{ filesString }
-							</Text>
-						</View>
-						<View style={ [ styles.content, styles.iconWrapper ] }>
-							<Icon
-								name="comment-o"
-							/>
-							<Text style={ [ styles.text, styles.iconText ] }>
-								{ commentsString }
-							</Text>
-						</View>
+					<View style={ [ styles.content, styles.iconWrapper ] }>
+						<Icon
+							name="comment-o"
+						/>
+						<Text style={ [ styles.text, styles.iconText ] }>
+							{ commentsString }
+						</Text>
 					</View>
 				</View>
-			</TouchableOpacity>
+			</Card>
 		);
 	}
 }

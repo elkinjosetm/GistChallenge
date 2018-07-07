@@ -7,6 +7,7 @@ export const mainStackConfig = {
 		headerBackTitle  : null,
 		headerStyle      : ApplicationStyles.navigation.header.wrapper,
 		headerTitleStyle : ApplicationStyles.navigation.header.title,
+		headerTintColor  : ApplicationStyles.navigation.header.buttonColor,
 	},
 };
 

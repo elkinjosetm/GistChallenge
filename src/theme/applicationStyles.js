@@ -22,6 +22,7 @@ export default {
 		card : {
 			backgroundColor : Colors.mainBackground,
 		},
+
 		header : {
 			wrapper : {
 				backgroundColor   : Colors.primary,

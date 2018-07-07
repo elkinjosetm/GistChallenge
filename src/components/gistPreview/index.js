@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity, View, Text } from 'react-native';
-import { isEqual, keys } from 'lodash';
+import { isEqual, isUndefined, keys } from 'lodash';
 import moment from 'moment';
 import Strings from '@I18n';
 import { __DATE_FORMAT__ } from '@constants';
@@ -13,6 +13,7 @@ import styles from './styles';
 class GistPreview extends Component {
 	static propType = {
 		isFirst : PropTypes.bool,
+		onPress : PropTypes.func,
 		data    : PropTypes.shape({
 			description : PropTypes.string,
 		}).isRequired,
@@ -37,6 +38,7 @@ class GistPreview extends Component {
 	render() {
 		const {
 			isFirst,
+			onPress,
 			data : {
 				description,
 				created_at,
@@ -58,6 +60,9 @@ class GistPreview extends Component {
 		return (
 			<TouchableOpacity
 				style={ [ styles.itemWrapper, isFirst ? styles.firstItem : undefined ] }
+				onPress={ onPress }
+				activeOpacity={ 0.8 }
+				disabled={ isUndefined(onPress) }
 			>
 				<View style={ styles.itemInnerContent }>
 					<View style={ styles.content }>

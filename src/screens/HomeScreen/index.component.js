@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { isEqual } from 'lodash';
 import { Button, TextInput, KeyboardAwareScrollView } from '@components';
-import Strings from '@I18n';
+import Strings from '@i18n';
 import styles from './styles';
 
 class HomeScreenComponent extends Component {

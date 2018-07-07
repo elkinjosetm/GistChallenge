@@ -1,4 +1,5 @@
 import { createActions, createReducer } from 'reduxsauce';
+import Strings from '@i18n';
 
 export { default as thunks } from './thunks';
 
@@ -6,7 +7,7 @@ export { default as thunks } from './thunks';
 export const INITIAL_STATE = {
 	isInitiated       : false,
 	loading           : false,
-	loadingLabel      : 'Loading...',
+	loadingLabel      : Strings.loading,
 	inAppNotification : null,
 };
 

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { View, Text } from 'react-native';
 import { isEqual, isUndefined, keys } from 'lodash';
 import moment from 'moment';
-import Strings from '@I18n';
+import Strings from '@i18n';
 import { __DATE_FORMAT__ } from '@constants';
 import { Card, Icon } from '@components';
 import styles from './styles';

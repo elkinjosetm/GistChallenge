@@ -2,12 +2,25 @@ import { ToastStyles } from 'react-native-toaster';
 import { get, isFunction } from 'lodash';
 import GlobalsActions from '@redux/globals';
 import AppActions from '@redux/app';
+import Strings from '@i18n';
 
+/**
+ * Function to handle in a generic
+ * way any failed API response.
+ *
+ * It has the option to update the
+ * state so we can stop an ongoing
+ * loading animation.
+ *
+ * And at the end, it'll show the user
+ * the message coming from the API,
+ * or just show a generic message
+ */
 export const apiErrorHandler = ({
 	dispatch,
 	module = 'app',
 	property = 'loading',
-	defaultMessage = 'Something went wrong, might be a connection issue.',
+	defaultMessage = Strings.defaultErrorMessage,
 }) => error => {
 	let message = defaultMessage;
 
@@ -28,6 +41,10 @@ export const apiErrorHandler = ({
 	}));
 };
 
+/**
+ * Function to trigger an in-app
+ * notification
+ */
 export const notify = ({
 	type,
 	onShow,

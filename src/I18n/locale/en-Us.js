@@ -1,5 +1,7 @@
 export default {
-	gistPreview : {
+	loading             : 'Loading...',
+	defaultErrorMessage : 'Something went wrong, might be a connection issue.',
+	gistPreview         : {
 		singleFile    : '1 file',
 		files         : '{0} files',
 		singleComment : '1 comment',

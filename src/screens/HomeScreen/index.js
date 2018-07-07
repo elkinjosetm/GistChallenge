@@ -5,7 +5,7 @@ import { isEqual, isEmpty } from 'lodash';
 import { bindActionCreators } from 'redux';
 import GlobalsActions from '@redux/globals';
 import { thunks } from '@redux/gists';
-import Strings from '@I18n';
+import Strings from '@i18n';
 import InnerComponent from './index.component';
 import styles from './styles';
 

@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { isEqual } from 'lodash';
 import { thunks } from '@redux/gists';
-import Strings from '@I18n';
+import Strings from '@i18n';
 import InnerComponent from './index.component';
 import styles from './styles';
 

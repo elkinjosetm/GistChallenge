@@ -7,24 +7,28 @@ import styles from './styles';
 
 class FilePreview extends Component {
 	static propType = {
-		data : PropTypes.shape({
+		cardProps : PropTypes.object,
+		data      : PropTypes.shape({
 			filename : PropTypes.string,
 			content  : PropTypes.string,
 		}).isRequired,
 	};
 
 	shouldComponentUpdate = ({
+		cardProps,
 		data,
 	}) => {
 		const lastProps = this.props;
 
 		return (
+			!isEqual(cardProps, lastProps.cardProps) ||
 			!isEqual(data, lastProps.data)
 		);
 	}
 
 	render() {
 		const {
+			cardProps,
 			data : {
 				filename,
 				content,
@@ -32,7 +36,7 @@ class FilePreview extends Component {
 		} = this.props;
 
 		return (
-			<Card>
+			<Card { ...cardProps }>
 				<View style={ styles.content }>
 					<Text style={ [ styles.text, styles.title ] }>
 						{ filename }

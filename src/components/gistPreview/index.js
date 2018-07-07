@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, Text } from 'react-native';
-import { isEqual, isUndefined, keys } from 'lodash';
+import { isEqual, keys } from 'lodash';
 import moment from 'moment';
 import Strings from '@i18n';
 import { __DATE_FORMAT__ } from '@constants';
@@ -12,33 +12,27 @@ import styles from './styles';
 
 class GistPreview extends Component {
 	static propType = {
-		isFirst : PropTypes.bool,
-		onPress : PropTypes.func,
-		data    : PropTypes.shape({
+		cardProps : PropTypes.object,
+		data      : PropTypes.shape({
 			description : PropTypes.string,
 		}).isRequired,
 	};
 
-	static defaultProps = {
-		isFirst : false,
-	};
-
 	shouldComponentUpdate = ({
-		isFirst,
+		cardProps,
 		data,
 	}) => {
 		const lastProps = this.props;
 
 		return (
-			!isEqual(isFirst, lastProps.isFirst) ||
+			!isEqual(cardProps, lastProps.cardProps) ||
 			!isEqual(data, lastProps.data)
 		);
 	}
 
 	render() {
 		const {
-			isFirst,
-			onPress,
+			cardProps,
 			data : {
 				description,
 				created_at,
@@ -58,11 +52,7 @@ class GistPreview extends Component {
 			commentsString = screenStrings.singleComment;
 
 		return (
-			<Card
-				first={ isFirst }
-				onPress={ onPress }
-				disabled={ isUndefined(onPress) }
-			>
+			<Card { ...cardProps }>
 				<View style={ styles.content }>
 					<Text style={ [ styles.text, styles.title ] }>
 						{ description }

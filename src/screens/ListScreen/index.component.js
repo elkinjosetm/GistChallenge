@@ -17,9 +17,11 @@ class ListScreenComponent extends Component {
 
 	renderItem = ({ item, index }) => (
 		<GistPreview
-			isFirst={ index === 0 }
 			data={ item }
-			onPress={ this.props.onPressGist(item.id) }
+			cardProps={ {
+				useFullTopSpacing : index === 0,
+				onPress           : this.props.onPressGist(item.id),
+			} }
 		/>
 	)
 

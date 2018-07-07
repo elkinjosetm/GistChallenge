@@ -8,8 +8,12 @@ export default StyleSheet.create({
 		paddingBottom     : (Metrics.screenSpacing / 2),
 	},
 
-	first : {
+	useFullTopSpacing : {
 		paddingTop : Metrics.screenSpacing,
+	},
+
+	removeTopSpacing : {
+		paddingTop : null,
 	},
 
 	innerContent : {

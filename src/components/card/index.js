@@ -6,19 +6,22 @@ import styles from './styles';
 
 class Card extends PureComponent {
 	static propType = {
-		first    : PropTypes.bool,
-		disabled : PropTypes.bool,
-		onPress  : PropTypes.func,
+		removeTopSpacing  : PropTypes.bool,
+		useFullTopSpacing : PropTypes.bool,
+		disabled          : PropTypes.bool,
+		onPress           : PropTypes.func,
 	};
 
 	static defaultProps = {
-		first    : false,
-		disabled : false,
+		removeTopSpacing  : false,
+		useFullTopSpacing : false,
+		disabled          : false,
 	};
 
 	render() {
 		const {
-			first,
+			useFullTopSpacing,
+			removeTopSpacing,
 			disabled,
 			onPress,
 			children,
@@ -31,7 +34,13 @@ class Card extends PureComponent {
 		);
 
 		return (
-			<View style={ [ styles.wrapper, first ? styles.first : undefined ] }>
+			<View
+				style={ [
+					styles.wrapper,
+					useFullTopSpacing ? styles.useFullTopSpacing : undefined,
+					removeTopSpacing ? styles.removeTopSpacing : undefined,
+				] }
+			>
 				<Choose>
 					<When condition={ isUndefined(onPress) }>
 						{ innerContent }

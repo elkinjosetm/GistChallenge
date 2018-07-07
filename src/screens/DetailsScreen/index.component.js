@@ -1,37 +1,59 @@
 import React, { Component } from 'react';
-import { FlatList } from 'react-native';
+import { SectionList } from 'react-native';
 import { isEqual } from 'lodash';
-import { FilePreview } from '@components';
+import { FilePreview, SectionHeader, CommentPreview } from '@components';
 
 class DetailsScreenComponent extends Component {
-	shouldComponentUpdate = ({ data, loading }) => {
+	shouldComponentUpdate = ({ sections, loading }) => {
 		const lastProps = this.props;
 
 		return (
-			!isEqual(data, lastProps.data) ||
+			!isEqual(sections, lastProps.sections) ||
 			!isEqual(loading, lastProps.loading)
 		);
 	}
 
-	renderItem = ({ item }) => (
-		<FilePreview
-			data={ item }
+	keyExtractor = ({ id }) => (id)
+
+	renderItem = ({ item, index, section : { type } }) => {
+		if (type === 'comments') {
+			return (
+				<CommentPreview
+					data={ item }
+					cardProps={ { removeTopSpacing : index === 0 } }
+				/>
+			);
+		}
+
+		return (
+			<FilePreview
+				data={ item }
+				cardProps={ { removeTopSpacing : index === 0 } }
+			/>
+		);
+	}
+
+	renderSectionHeader = ({ section }) => (
+		<SectionHeader
+			text={ section.title }
 		/>
 	)
 
 	render() {
 		const {
-			data,
+			sections,
 			loading,
 			onRefresh,
 		} = this.props;
 
 		return (
-			<FlatList
+			<SectionList
 				refreshing={ loading }
-				data={ data.filesArray }
+				sections={ sections }
 				onRefresh={ onRefresh }
 				renderItem={ this.renderItem }
+				renderSectionHeader={ this.renderSectionHeader }
+				keyExtractor={ this.keyExtractor }
 			/>
 		);
 	}

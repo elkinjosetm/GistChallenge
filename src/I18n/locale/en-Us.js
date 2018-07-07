@@ -16,5 +16,9 @@ export default {
 		list : {
 			title : 'Gist List',
 		},
+		details : {
+			files    : 'Files',
+			comments : 'Comments',
+		},
 	},
 };

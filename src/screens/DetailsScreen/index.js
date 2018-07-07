@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
-import { isEqual } from 'lodash';
+import { isEqual, cloneDeep, set } from 'lodash';
 import { thunks } from '@redux/gists';
+import Strings from '@i18n';
 import InnerComponent from './index.component';
 import styles from './styles';
 
@@ -11,15 +12,41 @@ class DetailsScreenContainer extends Component {
 		title : navigation.state.params.title,
 	});
 
-	shouldComponentUpdate = ({
-		data,
-		loading,
-	}) => {
+	constructor(props) {
+		super(props);
+		const screenStrings = Strings.screens.details;
+
+		const sections = [
+			{ title : screenStrings.files, data : props.data.filesArray, type : 'files' },
+			{ title : screenStrings.comments, data : props.comments, type : 'comments' },
+		];
+
+		this.state = {
+			sections,
+		};
+	}
+
+	static getDerivedStateFromProps = ({ data, comments }, prevState) => {
+		const screenStrings = Strings.screens.details;
+		const newState = cloneDeep(prevState);
+		const sections = [
+			{ title : screenStrings.files, data : data.filesArray },
+			{ title : screenStrings.comments, data : comments },
+		];
+
+		if (!isEqual(sections, prevState.sections))
+			set(newState, [ 'sections', sections ]);
+
+		return newState;
+	}
+
+	shouldComponentUpdate = ({ loading }, { sections }) => {
 		const lastProps = this.props;
+		const lastState = this.state;
 
 		return (
-			!isEqual(data, lastProps.data) ||
-			!isEqual(loading, lastProps.loading)
+			!isEqual(loading, lastProps.loading) ||
+			!isEqual(sections, lastState.sections)
 		);
 	}
 
@@ -34,14 +61,14 @@ class DetailsScreenContainer extends Component {
 
 	render() {
 		const {
-			data,
 			loading,
 		} = this.props;
+		const { sections } = this.state;
 
 		return (
 			<View style={ styles.container }>
 				<InnerComponent
-					data={ data }
+					sections={ sections }
 					loading={ loading }
 					onRefresh={ this.onRefresh }
 				/>
@@ -51,11 +78,15 @@ class DetailsScreenContainer extends Component {
 }
 
 const mapStateToProps = ({ gists : {
-	data : { details : data },
 	loading : { refreshControl : loading },
+	data : {
+		details : data,
+		comments,
+	},
 } }) => ({
 	data,
 	loading,
+	comments,
 });
 
 const mapDispatchToProps = dispatch => ({

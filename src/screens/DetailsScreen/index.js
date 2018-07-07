@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
-import { isEqual, cloneDeep, set } from 'lodash';
+import { isEqual, isEmpty, cloneDeep, set } from 'lodash';
 import { thunks } from '@redux/gists';
 import Strings from '@i18n';
 import InnerComponent from './index.component';
@@ -16,10 +16,10 @@ class DetailsScreenContainer extends Component {
 		super(props);
 		const screenStrings = Strings.screens.details;
 
-		const sections = [
-			{ title : screenStrings.files, data : props.data.filesArray, type : 'files' },
-			{ title : screenStrings.comments, data : props.comments, type : 'comments' },
-		];
+		const sections = [ { title : screenStrings.files, data : props.data.filesArray, type : 'files' } ];
+
+		if (!isEmpty(props.comments))
+			sections.push({ title : screenStrings.comments, data : props.comments, type : 'comments' });
 
 		this.state = {
 			sections,
@@ -29,10 +29,10 @@ class DetailsScreenContainer extends Component {
 	static getDerivedStateFromProps = ({ data, comments }, prevState) => {
 		const screenStrings = Strings.screens.details;
 		const newState = cloneDeep(prevState);
-		const sections = [
-			{ title : screenStrings.files, data : data.filesArray },
-			{ title : screenStrings.comments, data : comments },
-		];
+		const sections = [ { title : screenStrings.files, data : data.filesArray, type : 'files' } ];
+
+		if (!isEmpty(comments))
+			sections.push({ title : screenStrings.comments, data : comments, type : 'comments' });
 
 		if (!isEqual(sections, prevState.sections))
 			set(newState, [ 'sections', sections ]);

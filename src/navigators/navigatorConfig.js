@@ -1,6 +1,6 @@
 import { ApplicationStyles } from '@theme';
 
-export const mainStackConfig = {
+export const rootConfig = {
 	headerTransitionPreset : 'uikit',
 	cardStyle              : ApplicationStyles.navigation.card,
 	navigationOptions      : {
@@ -9,10 +9,4 @@ export const mainStackConfig = {
 		headerTitleStyle : ApplicationStyles.navigation.header.title,
 		headerTintColor  : ApplicationStyles.navigation.header.buttonColor,
 	},
-};
-
-export const rootConfig = {
-	headerMode : 'none',
-	mode       : 'modal',
-	cardStyle  : ApplicationStyles.navigation.card,
 };

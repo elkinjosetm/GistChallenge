@@ -29,7 +29,7 @@ class DetailsScreenContainer extends Component {
 		const isPrevAvailable = prevIndex > -1;
 		const isNextAvailable = nextIndex <= (props.list.length - 1);
 
-		const sections = [ { title : screenStrings.files, data : props.data.filesArray, type : 'files' } ];
+		const sections = [ { title : screenStrings.files, data : props.data.filesArray || [], type : 'files' } ];
 
 		if (!isEmpty(props.comments))
 			sections.push({ title : screenStrings.comments, data : props.comments, type : 'comments' });
@@ -44,7 +44,7 @@ class DetailsScreenContainer extends Component {
 	static getDerivedStateFromProps = ({ list, data, comments }, prevState) => {
 		const screenStrings = Strings.screens.details;
 		const newState = cloneDeep(prevState);
-		const sections = [ { title : screenStrings.files, data : data.filesArray, type : 'files' } ];
+		const sections = [ { title : screenStrings.files, data : data.filesArray || [], type : 'files' } ];
 		const currentIndex = findIndex(list, [ 'id', data.id ]);
 		const nextIndex = currentIndex + 1;
 		const prevIndex = currentIndex - 1;
@@ -55,13 +55,13 @@ class DetailsScreenContainer extends Component {
 			sections.push({ title : screenStrings.comments, data : comments, type : 'comments' });
 
 		if (!isEqual(sections, prevState.sections))
-			set(newState, [ 'sections', sections ]);
+			set(newState, [ 'sections' ], sections);
 
 		if (!isEqual(isPrevAvailable, prevState.isPrevAvailable))
-			set(newState, [ 'isPrevAvailable', isPrevAvailable ]);
+			set(newState, [ 'isPrevAvailable' ], isPrevAvailable);
 
 		if (!isEqual(isNextAvailable, prevState.isNextAvailable))
-			set(newState, [ 'isNextAvailable', isNextAvailable ]);
+			set(newState, [ 'isNextAvailable' ], isNextAvailable);
 
 		return newState;
 	}

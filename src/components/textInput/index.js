@@ -38,8 +38,8 @@ class TextInput extends Component {
 	static getDerivedStateFromProps = ({ value }, prevState) => {
 		const newState = cloneDeep(prevState);
 
-		if (!isEqual(newState.value, value))
-			set(newState, [ 'value', value ]);
+		if (!isEqual(prevState.value, value))
+			set(newState, [ 'value' ], value);
 
 		return newState;
 	}

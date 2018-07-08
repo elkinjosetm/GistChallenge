@@ -21,7 +21,6 @@ class HomeScreenComponent extends Component {
 	render() {
 		const {
 			onSearch,
-			onCreateGist,
 			validations,
 			form : {
 				username,
@@ -51,11 +50,6 @@ class HomeScreenComponent extends Component {
 						title={ screenStrings.search }
 						style={ styles.button }
 						onPress={ onSearch }
-					/>
-					<Button
-						color="primary"
-						title={ screenStrings.createGist }
-						onPress={ onCreateGist }
 					/>
 				</View>
 			</KeyboardAwareScrollView>

@@ -167,7 +167,18 @@ export const loadNearestGist = direction => ((dispatch, getState) => {
 	}));
 });
 
+/**
+ * NOTE:
+ *
+ * This is work in progress...
+ */
 export const createGist = () => (dispatch => {
+	/**
+	 * TODO:
+	 *
+	 * The loading label "Creating gist..."
+	 * must be defined on i18n.
+	 */
 	// Start loading animation
 	dispatch(AppActions.setLoading(true, 'Creating gist...'));
 

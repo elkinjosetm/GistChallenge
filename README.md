@@ -33,7 +33,9 @@ In order to run this project, you must have installed and already configured (if
 
 ## Install
 
-`yarn install`
+```
+$ yarn install
+```
 
 
 ## Run
@@ -43,9 +45,7 @@ In order to run this project, you must have installed and already configured (if
 In a separate terminal window/tab
 
 ```
-
 $ yarn start
-
 ```
 
 ### Launch App
@@ -57,9 +57,7 @@ In a separate terminal window/tab
 #### iOS app
 
 ```
-
 $ yarn ios
-
 ```
 
 
@@ -67,9 +65,7 @@ $ yarn ios
 #### Android app
 
 ```
-
 $ yarn android
-
 ```
 
 
@@ -77,14 +73,10 @@ $ yarn android
 
 The project is configured to use[react-native-debugger](https://github.com/jhen0409/react-native-debugger) which is a pretty useful debugger for React Native apps.
 
-- Run `npm run postinstall`
-
 **Use `REACT_DEBUGGER` env of react-native packager**
 
 If you're using **react-native-debugger**, make sure your packager is using the debugger, otherwise it'll keep opening the chrome's debugger. To do so, just run the following:
 
 ```
-
 $ REACT_DEBUGGER="rndebugger-open --open --port 8081"
-
 ```

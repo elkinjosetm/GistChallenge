@@ -1,5 +1,5 @@
 import { NavigationActions } from 'react-navigation';
-import { map, findIndex, get } from 'lodash';
+import { map, findIndex, get, isUndefined, isEqual } from 'lodash';
 import { v4 as uuid } from 'uuid';
 import { GistService } from '@services';
 import GlobalsActions from '@redux/globals';
@@ -75,7 +75,18 @@ export const getGistById = (gistId, {
 			return GistService.gotCommentsById(gistId);
 		})
 		.then(({ data }) => {
-			const { description : title } = getState().gists.data.details;
+			const {
+				nav : { routes },
+				gists : {
+					data : {
+						details : {
+							description : title,
+						}
+					}
+				},
+			} = getState();
+			const existingRouteIndex = findIndex(routes, [ 'routeName', 'Details' ]);
+			const existingRoute = routes[existingRouteIndex];
 
 			// Receive gist data
 			dispatch(Actions.receiveData('comments', data));
@@ -88,6 +99,27 @@ export const getGistById = (gistId, {
 				dispatch(NavigationActions.navigate({
 					routeName : 'Details',
 					params    : { title },
+				}));
+			}
+
+			/**
+			 * If we don't need to navigate to the
+			 * Details Screen, it probably means that
+			 * we are already on that screen, so, we
+			 * need just need to make sure the title
+			 * of the screen needs to change. If so,
+			 * then we just change the title of the
+			 * current screen.
+			 */
+			if (
+				!navigateToPage &&
+				existingRouteIndex === (routes.length - 1) &&
+				!isUndefined(existingRoute) &&
+				!isEqual(get(existingRoute, [ 'params', 'title' ]), title)
+			) {
+				dispatch(NavigationActions.setParams({
+					params : { title },
+					key    : get(existingRoute, [ 'key' ]),
 				}));
 			}
 

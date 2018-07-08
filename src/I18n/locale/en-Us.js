@@ -12,6 +12,7 @@ export default {
 			title        : 'User Selection',
 			gistUsername : 'Gist Username',
 			search       : 'Search',
+			createGist   : 'Create Gist',
 		},
 		list : {
 			title : 'Gist List',

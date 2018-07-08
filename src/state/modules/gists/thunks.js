@@ -3,6 +3,7 @@ import { map, findIndex, get, isUndefined, isEqual } from 'lodash';
 import { v4 as uuid } from 'uuid';
 import { GistService } from '@services';
 import GlobalsActions from '@redux/globals';
+import AppActions from '@redux/app';
 import { apiErrorHandler } from '@utils';
 import Actions from './';
 
@@ -86,7 +87,7 @@ export const getGistById = (gistId, {
 			if (data.comments === 0)
 				return Promise.resolve({ data : [] });
 
-			return GistService.gotCommentsById(gistId);
+			return GistService.getCommentsById(gistId);
 		})
 		.then(({ data }) => {
 			const {
@@ -166,8 +167,43 @@ export const loadNearestGist = direction => ((dispatch, getState) => {
 	}));
 });
 
+export const createGist = () => (dispatch => {
+	// Start loading animation
+	dispatch(AppActions.setLoading(true, 'Creating gist...'));
+
+	const gist = {
+		description : 'the description for this gist 2',
+		public      : true,
+		files       : {
+			'file1.txt' : {
+				content : 'my new content '
+			}
+		}
+	};
+
+	GistService.createGist(gist, {
+		auth : {
+			username : '', // Github username
+			password : '', // Github password
+		},
+		headers : {
+			'X-GitHub-OTP' : '', // 2fa authentication one-time password.
+		},
+	})
+		.then(response => {
+			console.log(response);
+
+			// Stop loading animation
+			dispatch(AppActions.setLoading(false));
+		})
+		.catch(apiErrorHandler({
+			dispatch,
+		}));
+});
+
 export default {
 	loadGists,
 	getGistById,
 	loadNearestGist,
+	createGist,
 };

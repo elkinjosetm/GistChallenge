@@ -28,6 +28,7 @@ export default class AbstractService {
 		endpoint,
 		data,
 		queryParams,
+		auth,
 		headers,
 		timeout,
 	}) {
@@ -37,6 +38,7 @@ export default class AbstractService {
 			endpoint,
 			data,
 			queryParams,
+			auth,
 			headers,
 			timeout,
 		});
@@ -47,6 +49,7 @@ export default class AbstractService {
 		endpoint,
 		data,
 		queryParams,
+		auth,
 		headers,
 		timeout,
 	}) {
@@ -56,6 +59,7 @@ export default class AbstractService {
 			endpoint,
 			data,
 			queryParams,
+			auth,
 			headers,
 			timeout,
 		});
@@ -66,6 +70,7 @@ export default class AbstractService {
 		endpoint,
 		data,
 		queryParams,
+		auth,
 		headers,
 		timeout,
 	}) {
@@ -75,6 +80,7 @@ export default class AbstractService {
 			endpoint,
 			data,
 			queryParams,
+			auth,
 			headers,
 			timeout,
 		});
@@ -86,6 +92,7 @@ export default class AbstractService {
 		method = 'GET',
 		data,
 		queryParams,
+		auth,
 		headers,
 		timeout,
 	}) {
@@ -95,6 +102,7 @@ export default class AbstractService {
 			method,
 			data,
 			queryParams,
+			auth,
 			headers,
 			timeout,
 		});
@@ -103,19 +111,23 @@ export default class AbstractService {
 	abstractRequest({
 		method,
 		data,
+		auth,
 		endpoint : url,
 		queryParams : params,
-		headers = { 'Cache-Control' : 'no-cache' },
+		headers : rawHeaders = {},
 		baseURL = this.baseURL,
 		timeout = this.timeout,
 		withCredentials = true,
 	}) {
+		const headers = { ...rawHeaders, 'Cache-Control' : 'no-cache' };
+
 		return axios({
 			baseURL,
 			method,
 			data,
 			timeout,
 			withCredentials,
+			auth,
 			headers,
 			url,
 			params,

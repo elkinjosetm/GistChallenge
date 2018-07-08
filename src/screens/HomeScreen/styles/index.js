@@ -19,4 +19,8 @@ export default StyleSheet.create({
 	textInput : {
 		marginBottom : Metrics.screenSpacing,
 	},
+
+	button : {
+		marginBottom : Metrics.screenSpacing,
+	},
 });

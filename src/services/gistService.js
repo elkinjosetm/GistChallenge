@@ -26,33 +26,44 @@ export default class GistService extends AbstractService {
 		};
 	}
 
-	static getByUsername(username, { queryParams } = {}) {
+	static getByUsername(username, options = {}) {
 		if (isNull(instance))
 			return Promise.reject({ message : _SERVICE_UNAVAILABLE_ });
 
 		return instance.get({
 			endpoint : `${instance.endpoints.users}/${username}/${instance.endpoints.gists}`,
-			queryParams,
+			...options,
 		});
 	}
 
-	static getById(gistId, { queryParams } = {}) {
+	static getById(gistId, options = {}) {
 		if (isNull(instance))
 			return Promise.reject({ message : _SERVICE_UNAVAILABLE_ });
 
 		return instance.get({
 			endpoint : `${instance.endpoints.gists}/${gistId}`,
-			queryParams,
+			...options,
 		});
 	}
 
-	static gotCommentsById(gistId, { queryParams } = {}) {
+	static getCommentsById(gistId, options = {}) {
 		if (isNull(instance))
 			return Promise.reject({ message : _SERVICE_UNAVAILABLE_ });
 
 		return instance.get({
 			endpoint : `${instance.endpoints.gists}/${gistId}/${instance.endpoints.comments}`,
-			queryParams,
+			...options,
+		});
+	}
+
+	static createGist(data, options = {}) {
+		if (isNull(instance))
+			return Promise.reject({ message : _SERVICE_UNAVAILABLE_ });
+
+		return instance.post({
+			endpoint : instance.endpoints.gists,
+			data,
+			...options,
 		});
 	}
 }

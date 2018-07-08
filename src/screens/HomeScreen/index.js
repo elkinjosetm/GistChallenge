@@ -58,6 +58,8 @@ class HomeScreenContainer extends Component {
 		{ module : 'gists', property : [ 'validations', property ], value : false },
 	])
 
+	onCreateGist = () => this.props.dispatch(thunks.createGist())
+
 	render() {
 		const {
 			form,
@@ -71,6 +73,7 @@ class HomeScreenContainer extends Component {
 					validations={ validations }
 					onSearch={ this.onSearch }
 					onChange={ this.onChange }
+					onCreateGist={ this.onCreateGist }
 				/>
 			</View>
 		);

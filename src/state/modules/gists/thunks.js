@@ -72,6 +72,20 @@ export const getGistById = (gistId, {
 			// Receive gist data
 			dispatch(Actions.receiveData('details', data));
 
+			/**
+			 * If the gist doesn't have comments,
+			 * we don't need the request them.
+			 *
+			 * This is particularly important
+			 * because the Gist API has a limit
+			 * of 60 requests per hour, so, we
+			 * should be wasting requests, if we
+			 * do the comments request knowing that
+			 * is empty.
+			 */
+			if (data.comments === 0)
+				return Promise.resolve({ data : [] });
+
 			return GistService.gotCommentsById(gistId);
 		})
 		.then(({ data }) => {

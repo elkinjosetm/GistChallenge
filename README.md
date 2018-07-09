@@ -1,4 +1,3 @@
-
 # GIST Challenge
 
 In this React Native code challenge, I'm aiming to build an app to read (and write if time allows) GISTs using official GitHub's API with a focus on reusable components, and scalability in mind. With support for both iOS and Android.
@@ -26,10 +25,10 @@ For debugging the project is configured to use [react-native-debugger](https://g
 ## Requirements
 In order to run this project, you must have installed and already configured (if supported) all this tools.
 
- - [Yarn](https://yarnpkg.com/lang/en/)
- - [Node](https://nodejs.org/en/)
- - xCode (Mac users only)
- - Android Simulator
+- [Yarn >= v1.5.1](https://yarnpkg.com/lang/en/)
+- [Node >= v10](https://nodejs.org/en/)
+- [xcode >= v9.4](https://itunes.apple.com/co/app/xcode/id497799835) (Mac users only)
+- Android Simulator
 
 ## Install
 

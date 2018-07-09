@@ -59,14 +59,15 @@ export default {
  *
  * We need to ignore the following
  * warning messages, because they
- * are coming apparently from the
- * React-Native library itself, and
- * until the library gets updated
- * it'll be throwing this warnings.
+ * are coming from the React-Native
+ * library itself, and until the
+ * library gets updated it'll be
+ * throwing these warnings.
  */
 if (__DEV__) {
 	YellowBox.ignoreWarnings([
 		'Module RCTImageLoader',
 		'Warning: isMounted',
+		'Class RCTCxxModule',
 	]);
 }
